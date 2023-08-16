@@ -1,7 +1,7 @@
 const mongoose = require("mongoose")
 const { Schema } = mongoose
 
-const userSchema = new Schema({
+const sellerSchema = new Schema({
     username: {
         type: String, 
         required: true,
@@ -13,8 +13,8 @@ const userSchema = new Schema({
             message: (props) => `${props/value} is not a valid email`
         },
     },
-    name:{type: String, required: true},
+    storename:{type: String, required: true},
     password: {type: String, minLength: 6, required: true},
 })
 
-exports.User = mongoose.model("User", userSchema)
+exports.Seller = mongoose.model("Seller", sellerSchema)

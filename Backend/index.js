@@ -5,7 +5,7 @@ const mongoose = require("mongoose")
 const connection = require("./Database config/databse")
 const productRouter = require("./Routes/product")
 const cors = require("cors")
-const bodyParser = require('body-parser')
+const sellerRouter = require("./Routes/seller")
 
 
 connection()
@@ -19,6 +19,9 @@ server.use(express.json());
 
 
 server.use("/products", productRouter.routes)
+server.use("/seller",
+    sellerRouter.routes
+)
 
 
 server.get("/",(req,res)=>{
