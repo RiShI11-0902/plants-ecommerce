@@ -1,8 +1,12 @@
 import React from 'react'
 import Navbar from "./Navbar"
 import { Img, im2, im3 } from '../assets'
+import { useNavigate } from "react-router-dom"
 const Homepage = () => {
+  const navigate = useNavigate();
   return (
+
+
     <>
     
       <Navbar />
@@ -16,21 +20,12 @@ const Homepage = () => {
             </div>
             <div className="buttons mt-10 flex w-full justify-evenly font-semibold ">
               <button className='bg-green-500 p-2.5 px-5 rounded-full'>BUY PLANTS</button>
-              <button className='bg-green-500 p-2.5 px-5 rounded-full'>SELL PLANTS</button>
+              <button className='bg-green-500 p-2.5 px-5 rounded-full' onClick={()=> navigate("/login")}>SELL PLANTS</button>
             </div>
                   <img className='w-40 absolute bottom-0 left-0' src={im2} alt="" />
           </div>
           <div className="right before:bg-green-300 before:absolute before:top-0 before:right-0  before:w-[50%] before:h-[90%] before:rounded-3xl before:-z-10 before:bg-opacity-20">
             <img className='' src={Img} alt="" />
-          </div>
-        </div>
-
-        <div className="secondimg">
-          <div className="list">
-            <div className="item1">
-              <img src="" alt="" />
-              <p>Free Shipping</p>
-            </div>
           </div>
         </div>
       </div>
