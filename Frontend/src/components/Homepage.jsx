@@ -1,9 +1,7 @@
 import React from 'react'
 import Navbar from "./Navbar"
 import { Img, im2, im3 } from '../assets'
-import { useNavigate } from "react-router-dom"
 const Homepage = () => {
-  const navigate = useNavigate();
   return (
 
 
@@ -19,8 +17,7 @@ const Homepage = () => {
               Perfect Plant to Decor is Here
             </div>
             <div className="buttons mt-10 flex w-full justify-evenly font-semibold ">
-              <button className='bg-green-500 p-2.5 px-5 rounded-full'>BUY PLANTS</button>
-              <button className='bg-green-500 p-2.5 px-5 rounded-full' onClick={()=> navigate("/login")}>SELL PLANTS</button>
+              {/* <button className='bg-green-500 p-2.5 px-5 rounded-full'>BUY PLANTS</button> */}
             </div>
                   <img className='w-40 absolute bottom-0 left-0' src={im2} alt="" />
           </div>

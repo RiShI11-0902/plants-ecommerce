@@ -1,10 +1,10 @@
 const express = require("express")
 const router = express.Router();
-const sellerController = require("../Controller/seller")
+const userController = require("../Controller/users")
 
 router
-    .post("/createSeller",
-        sellerController.createSeller)
+    .post("/",
+        userController.createSeller)
     // .get("/getAllProducts", sellerController.getAllProducts)
 
 exports.routes = router

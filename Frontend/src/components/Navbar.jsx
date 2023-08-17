@@ -6,10 +6,13 @@ import { GrCart } from "react-icons/gr";
 // import { useSelector } from "react-redux"
 import { GiHamburgerMenu } from "react-icons/gi";
 import { AiOutlineClose } from "react-icons/ai";
+import { useNavigate } from "react-router";
 // import {logo} from '../images/index'
 const Navbar = () => {
   const [toggle, setToggle] = useState(true)
-  const num = useSelector((state) => state.Cart.cartItems.noOfP)
+  
+  const navigate = useNavigate();
+
   return (
     <>
 
@@ -25,9 +28,9 @@ const Navbar = () => {
               <li className="cursor-pointer">Seeds</li>
               <li className="cursor-pointer">Plot & Planters</li>
               <li className="cursor-pointer">Contact</li>
-              <li className="cursor-pointer">₹{199 * num}</li>
-              <li className="relative"><img className="w-9" src={bag} alt="" />  <span className="absolute text-sm font-thin top-[0.65rem] left-[0.85rem]">{num}</span> </li>
-              <li className="cursor-pointer" ><img className="w-9"  src={user} alt="" /></li>
+              <li>
+                <button className='bg-green-500 p-2.5 px-5 rounded-full' onClick={() => navigate("/login")}>Sign in</button>
+              </li>
             </ul>
           </div>
         </div>

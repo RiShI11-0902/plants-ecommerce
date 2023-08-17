@@ -5,7 +5,7 @@ const mongoose = require("mongoose")
 const connection = require("./Database config/databse")
 const productRouter = require("./Routes/product")
 const cors = require("cors")
-const sellerRouter = require("./Routes/seller")
+const userRouter = require("./Routes/users")
 
 
 connection()
@@ -19,8 +19,8 @@ server.use(express.json());
 
 
 server.use("/products", productRouter.routes)
-server.use("/seller",
-    sellerRouter.routes
+server.use("/registration-login",
+    userRouter.routes
 )
 
 

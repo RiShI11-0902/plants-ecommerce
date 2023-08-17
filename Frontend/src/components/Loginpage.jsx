@@ -18,7 +18,7 @@ const Loginpage = () => {
     const handleForm = async (e) => {
         e.preventDefault();
         if (register) {
-            const response = await fetch('http://localhost:8080/seller/createSeller', {
+            const response = await fetch('http://localhost:8080/registration-login', {
                 method: 'POST',
                 body: JSON.stringify(form),
                 headers: {
@@ -28,7 +28,7 @@ const Loginpage = () => {
             const data = await response.json()
             console.log(data);
         }
-
+        
     }
 
     return (
@@ -50,10 +50,13 @@ const Loginpage = () => {
                                         <label htmlfor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
                                         <input onChange={handleinput} type="email" name="username" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required="" />
                                     </div>
+                                    {
+                                        register ? 
                                     <div>
-                                        <label htmlfor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Storename</label>
-                                        <input onChange={handleinput} type="text" name="storename" id="text" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="My Store" required="" />
+                                        <label htmlfor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Name</label>
+                                        <input onChange={handleinput} type="text" name="name" id="name" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="My Name" required="" />
                                     </div>
+                                     : " " }
                                     <div>
                                         <label htmlfor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
                                         <input onChange={handleinput} type="password" name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" />
