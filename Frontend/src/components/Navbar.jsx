@@ -16,14 +16,14 @@ const Navbar = () => {
   return (
     <>
 
-      <div className="navbar  top-0 flex items-center left-0 w-full  fixed justify-around my-8">
+      <div className="navbar  top-0 flex items-center left-0 w-fit  fixed space-x-20 my-8">
         <div className="left  w-full flex items-center justify-evenly flex-row">
-          <div className="logo font-extrabold text-3xl ">
+          <div className="logo font-extrabold ml-5 text-3xl ">
             Plant Com
           </div>
           <div>
             <ul className="sm:flex space-x-5 font-bold hidden md:block md:flex md:items-center md:flex-row">
-              <li className="cursor-pointer">Home</li>
+              <li className="cursor-pointer"> <a href="/">Home</a></li>
               <li className="cursor-pointer" >Plants</li>
               <li className="cursor-pointer">Seeds</li>
               <li className="cursor-pointer">Plot & Planters</li>
@@ -45,13 +45,14 @@ const Navbar = () => {
                 <div className=" absolute bg-slate-500 w-full top-14 left-0 ">
                   <div className="nav-items my-4">
                     <ul className="flex flex-col space-y-5 items-center font-bold">
+                    <li className="cursor-pointer"> <a href="/">Home</a></li>
                       <li>Everything's</li>
                       <li >Plants</li>
                       <li>Flowers</li>
                       <li >Contact</li>
-                      <li>₹{199 * num}</li>
-                      <li className="relative"><img className="w-9" src={bag} alt="" />  <span className="absolute text-sm font-thin top-[0.65rem] left-[0.85rem]">{num}</span> </li>
-                      <li ><img className="w-9" src={user} alt="" /></li>
+                      <li>
+                <button className='bg-green-500 p-2.5 px-5 rounded-full' onClick={() => navigate("/login")}>Sign in</button>
+              </li>
 
                     </ul>
                   </div>

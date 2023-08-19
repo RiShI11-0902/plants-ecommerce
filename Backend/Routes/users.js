@@ -4,7 +4,7 @@ const userController = require("../Controller/users")
 
 router
     .post("/",
-        userController.createSeller)
+        userController.createUser)
     // .get("/getAllProducts", sellerController.getAllProducts)
 
 exports.routes = router

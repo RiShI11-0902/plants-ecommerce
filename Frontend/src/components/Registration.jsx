@@ -2,8 +2,9 @@ import axios from 'axios';
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router'
 
-const Loginpage = () => {
+const Registration = () => {
     const navigate = useNavigate();
+    
     const [form, setForm] = useState({});
 
     const handleinput = (e) => {
@@ -16,29 +17,18 @@ const Loginpage = () => {
 
     const handleForm = async (e) => {
         e.preventDefault();
-        // console.log(form);
-           const data =  await fetch('http://localhost:8080/login',{
-                method: "POST",
+       
+        
+            const response = await fetch('http://localhost:8080/registration', {
+                method: 'POST',
                 body: JSON.stringify(form),
                 headers: {
                     'Content-Type': "application/json"
                 }
             })
-            const response = await data.json()
-            console.log(response);
-            navigate("/products", {state:{products: response}})
-            console.log("data fetched");
-            // const data = await response.json()
-            // console.log(data);
-            // console.log(response);
+            const data = await response.json()
+            console.log(data);
         
-            // , {
-            //     method: 'POST',
-            //     body: JSON.stringify(form),
-            //     headers: {
-            //         'Content-Type': "application/json"
-            //     }
-            // }
     }
 
     return (
@@ -53,7 +43,7 @@ const Loginpage = () => {
                         <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
                             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
                                 <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-                                     Sign in to your account
+                                   Register your account
                                 </h1>
                                 <form onSubmit={handleForm} className="space-y-4 md:space-y-6" action="#">
                                     <div>
@@ -61,17 +51,22 @@ const Loginpage = () => {
                                         <input onChange={handleinput} type="email" name="username" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required="" />
                                     </div>
                                     <div>
+                                        <label htmlfor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Name</label>
+                                        <input onChange={handleinput} type="text" name="name" id="name" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="My Name" required="" />
+                                    </div>
+                                    
+                                    <div>
                                         <label htmlfor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
                                         <input onChange={handleinput} type="password" name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" />
                                     </div>
                                     <div className="flex items-center justify-between">
                                         <button type='submit'>
-                                            Login
+                                            Register 
                                         </button>
                                     </div>
                                     <button type="submit" className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Sign in</button>
                                     <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                                       Don't have an account yet?  <span onClick={() =>navigate("/register")} className="font-medium text-primary-600 hover:underline dark:text-primary-500 cursor-pointer"> Register </span>
+                                         "Have an account "    <span onClick={() => navigate("/login")} className="font-medium text-primary-600 hover:underline dark:text-primary-500 cursor-pointer"> Sign in </span>
                                     </p>
                                 </form>
                             </div>
@@ -83,4 +78,4 @@ const Loginpage = () => {
     )
 }
 
-export default Loginpage
+export default Registration

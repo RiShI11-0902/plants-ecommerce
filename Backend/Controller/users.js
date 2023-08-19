@@ -1,9 +1,14 @@
 const express = require("express")
 const model = require("../Modal/users")
 const User = model.User;
+const bcrypt = require("bcrypt")
 
-exports.createSeller = async (req,res)=>{
-    const user =  new User(req.body);
+exports.createUser = async (req,res)=>{
+    const user =  new User();
+    user.username = req.body.username
+    user.name = req.body.name
+    user.password = bcrypt.hashSync(req.body.password.toString(), 10)
+
     // res.send(user)
     try {
         await user.save()

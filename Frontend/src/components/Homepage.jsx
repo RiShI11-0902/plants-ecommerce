@@ -3,8 +3,6 @@ import Navbar from "./Navbar"
 import { Img, im2, im3 } from '../assets'
 const Homepage = () => {
   return (
-
-
     <>
     
       <Navbar />
