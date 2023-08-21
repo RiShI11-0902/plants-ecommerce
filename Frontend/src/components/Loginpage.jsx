@@ -1,50 +1,55 @@
 import axios from 'axios';
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router'
-
+import { useForm } from "react-hook-form"
 const Loginpage = () => {
     const navigate = useNavigate();
     const [form, setForm] = useState({});
+    const { handleSubmit, register, formState: { errors } } = useForm()
 
-    const handleinput = (e) => {
-        console.log(form);
-        setForm({
-            ...form,
-            [e.target.name]: e.target.value,
-        })
-    }
+    // const handleinput = (e) => {
+    //     console.log(form);
+    //     setForm({
+    //         ...form,
+    //         [e.target.name]: e.target.value,
+    //     })
+    // }
 
-    const handleForm = async (e) => {
-        e.preventDefault();
-        // console.log(form);
-        const data = await fetch('http://localhost:8080/login', {
-            method: "POST",
-            body: JSON.stringify(form),
-            headers: {
-                'Content-Type': "application/json"
-            }
-        })
-        try {
-            const response = await data.json()
-            console.log(response);
-            // navigate("/products", { state: { products: response } })
-            console.log("data fetched");
-        } catch (error) {
-            console.log(error);
-        }
+    // const handleForm = async (e) => {
+    //     e.preventDefault(); //http://localhost:8080
+    //     const data = await axios.post("/auth/login", form)
+    //     console.log(data);
+    //     // console.log(form);
+    //     // const data = await fetch('/login', {
+    //     //     method: "POST",
+    //     //     body: JSON.stringify(form),
+    //     //     headers: {
+    //     //         'Content-Type': "application/json"
+    //     //     }
+    //     // })
+    //     // try {
+    //     //     // const response = await data.json()
+    //     //     console.log(data);
+    //     //     // navigate("/products", { state: { products: response } })
+    //     //     console.log("data fetched");
+    //     // } catch (error) {
+    //     //     console.log(error);
+    //     // }
 
-        // const data = await response.json()
-        // console.log(data);
-        // console.log(response);
+    //     // const data = await response.json()
+    //     // console.log(data);
+    //     // console.log(response);
 
-        // , {
-        //     method: 'POST',
-        //     body: JSON.stringify(form),
-        //     headers: {
-        //         'Content-Type': "application/json"
-        //     }
-        // }
-    }
+    //     // , {
+    //     //     method: 'POST',
+    //     //     body: JSON.stringify(form),
+    //     //     headers: {
+    //     //         'Content-Type': "application/json"
+    //     //     }
+    //     // }
+    // }
+
+    // const handleSubmit = (data) => console.log(data);
 
     return (
         <div>
@@ -60,14 +65,28 @@ const Loginpage = () => {
                             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                                 Sign in to your account
                             </h1>
-                            <form onSubmit={handleForm} className="space-y-4 md:space-y-6" action="#">
+                            <form onSubmit={handleSubmit((data)=>{
+                                console.log(data);
+                            })} className="space-y-4 md:space-y-6" action="#" noValidate>
                                 <div>
                                     <label htmlfor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
-                                    <input onChange={handleinput} type="email" name="username" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required="" />
+                                    <input {...register("username",{
+                                        required: "E-mail is Required",
+                                        pattern:{
+                                            value: /\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b/gi,
+                                            message: 'E-mail not valid',
+                                          },
+                                    })}
+                                     type="email" name="username" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com"  />
+                                     { errors.username ? <p className='text-red-800'>{errors.username.message}</p> : " " }
                                 </div>
                                 <div>
                                     <label htmlfor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                                    <input onChange={handleinput} type="password" name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" />
+                                    <input {...register("password",{
+                                        required: " Password is Required",
+                                    })} type="password" name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  />
+                                    { errors.password ? <p className='text-red-800'>{errors.password.message}</p> : " " }
+                                    
                                 </div>
                                 <div className="flex items-center justify-between">
                                     <button type='submit'>

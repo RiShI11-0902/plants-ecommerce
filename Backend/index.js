@@ -4,9 +4,12 @@ const server = express()
 const mongoose = require("mongoose")
 const connection = require("./Database config/databse")
 const productRouter = require("./Routes/product")
+const profileRouter = require("./Routes/profile")
+
 const cors = require("cors")
 const path = require("path")
 const userRouter = require("./Routes/users")
+
 const passport = require("passport")
 const {initializePassport, isAuthenticated} = require("./passport-config")
 const session = require("express-session")
@@ -21,7 +24,7 @@ connection()
 
 server.use(cors());
 // server.use(bodyParser);
-server.use(express.urlencoded({extended: true}))
+server.use(express.urlencoded())
 server.use(express.json());
 // server.use(express.static(path.resolve(__dirname, "dist" , "index.html")))
 server.use(express.static( path.resolve(__dirname, process.env.PUBLIC_DIR)));
@@ -34,27 +37,30 @@ server.use(session({
 server.use(passport.initialize())
 server.use(passport.session())
 
-server.use("*", (req,res)=>{
-    res.sendFile(path.resolve(__dirname,  "dist" , "index.html"));
-})
-// server.set('view engine', 'html')
-server.set('view engine', 'ejs')
+// server.get("*", (req,res)=>{
+//     res.sendFile(path.resolve(__dirname,  "dist" , "index.html"));
+// })
+// // server.set('view engine', 'html')
+// server.set('view engine', 'ejs')
 
-console.log(__dirname);
+// console.log(path.resolve(__dirname));
 
 console.log(process.env.SECRET);
 
 
-server.use("/api/products", productRouter.routes)
-server.use("/registration",
-    userRouter.routes
+server.use("/api/products", isAuthenticated, productRouter.routes)
+server.use("/auth",userRouter.routes
 )
-server.use("/login", passport.authenticate("local" , {  failureRedirect: "/registration", successRedirect:"/products"}))
+// server.use("/login", passport.authenticate("local" , {  failureRedirect: "/registration", successRedirect:"/"}))
+// 
+// server.use("/products", profileRouter.routes )
 
-
-// server.use("/login",  passport.authenticate("local" , {failureRedirect: "/register"}), (req,res)=>{
-//     // res.redirect("api/products/getAllProducts")
-//     res.send("/")
+// server.use("/login",  passport.authenticate("local" , {failureRedirect: "/" }), (req,res)=>{
+//     res.redirect("/products")
+    
+//     // res.send("/")
+// //    res.sendFile("/") 
+//     // res.send("HEllo welcome")
 // })
 
 // server.use("/plants", isAuthenticated , ()=>{

@@ -12,12 +12,27 @@ exports.createUser = async (req,res)=>{
     // res.send(user)
     try {
         await user.save()
+        req.login(user, (err)=>{
+            if (err){
+                res.status(400).json(err)
+            }
+            else{
+                res.status(201).json(user)
+            }
+        })
         res.send(user);
+        // console.log(user);
     } catch (error) {
         res.send(error)
     }
 }
 
+exports.loginUser = (req,res)=>{
+    res.json({status: "Success"})
+}
+exports.checkUser = (req,res)=>{
+    res.json(req.user)
+}
 // exports.getAllProducts = async (req,res)=>{
 //     const product = await User.find()
 //     res.json(product);

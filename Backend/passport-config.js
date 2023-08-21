@@ -40,6 +40,7 @@ exports.initializePassport = (passport) => {
 
 exports.isAuthenticated = (req,res,next)=>{
   if(req.user) return next()
-  res.redirect("/login")
+  res.send(401)
+  // res.redirect("/login")
 }
 
