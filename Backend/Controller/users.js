@@ -20,7 +20,7 @@ exports.createUser = async (req,res)=>{
                 res.status(201).json(user)
             }
         })
-        res.send(user);
+        res.send({id: user.id, name: user.name});
         // console.log(user);
     } catch (error) {
         res.send(error)
@@ -28,10 +28,17 @@ exports.createUser = async (req,res)=>{
 }
 
 exports.loginUser = (req,res)=>{
-    res.json({status: "Success"})
+    // res.json({status: "Success"})
+    const user = req.user;
+    res.status(200).json({id: user.id, name: user.name})
 }
 exports.checkUser = (req,res)=>{
-    res.json(req.user)
+    if (req.user) {
+        res.json(req.user)
+    }
+    else{
+        res.sendStatus(401);
+    }
 }
 // exports.getAllProducts = async (req,res)=>{
 //     const product = await User.find()

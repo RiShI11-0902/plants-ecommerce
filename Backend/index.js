@@ -47,10 +47,8 @@ server.use(passport.session())
 
 console.log(process.env.SECRET);
 
-
 server.use("/api/products", isAuthenticated, productRouter.routes)
-server.use("/auth",userRouter.routes
-)
+server.use("/auth",userRouter.routes)
 // server.use("/login", passport.authenticate("local" , {  failureRedirect: "/registration", successRedirect:"/"}))
 // 
 // server.use("/products", profileRouter.routes )

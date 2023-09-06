@@ -7,7 +7,7 @@ const ProductsPage = () => {
     // const location = useLocation()
 
     // console.log(location.state.products);
-    // // const [data, setData] = useState()
+    const [data, setData] = useState()
     // //  setData() 
     //  const data = location.state.products
 
@@ -18,6 +18,7 @@ const ProductsPage = () => {
         const response = await  axios.get("/api/products/getAllProducts")
         //   const data = response.json()
           console.log(response);
+          setData(response);
     }
 
     useEffect(() => {
@@ -31,7 +32,7 @@ const ProductsPage = () => {
   return (
     <>
         <Navbar />
-     {/* <div className='mt-20'>
+     <div className='mt-20'>
         {
             data?.map((i)=>{
                 return <div>
@@ -39,7 +40,7 @@ const ProductsPage = () => {
                 </div>
             })
         }
-        </div> */}
+        </div>
     </>
   )
 }

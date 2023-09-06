@@ -10,13 +10,14 @@ import { useNavigate } from "react-router";
 // import {logo} from '../images/index'
 const Navbar = () => {
   const [toggle, setToggle] = useState(true)
-  
+  const selectUser = useSelector(state => state.auth.loggedInUser)
+
   const navigate = useNavigate();
 
   return (
     <>
 
-      <div className="navbar  top-0 flex items-center left-0 w-fit  fixed space-x-20 my-8">
+      <div className="navbar flex items-center  w-full mx-auto space-x-40 my-8">
         <div className="left  w-full flex items-center justify-evenly flex-row">
           <div className="logo font-extrabold ml-5 text-3xl ">
             Plant Com
@@ -28,10 +29,14 @@ const Navbar = () => {
               <li className="cursor-pointer">Seeds</li>
               <li className="cursor-pointer">Plot & Planters</li>
               <li className="cursor-pointer">Contact</li>
-              <li>
-                <button className='bg-green-500 p-2.5 px-5 rounded-full' onClick={() => navigate("/login")}>Sign in</button>
-              </li>
             </ul>
+          </div>
+          <div>
+          {
+                selectUser ?
+                <span className="text-green-950 text-2xl font-extrabold"> Hello, {selectUser.name}</span>  
+                 : <button className='bg-green-500 p-2.5 px-5 rounded-full' onClick={() => navigate("/login")}>Sign in</button>
+              }
           </div>
         </div>
 

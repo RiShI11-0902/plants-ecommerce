@@ -1,25 +1,46 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createUser, loginUser } from "./authApi";
 
-export const dataReducer = createSlice({
-    name:"Cart",
-    initialState: {cartItems:{
-      pName:"Midi Jade Plant",
-      noOfP:0,
-      totalPrice:0
-    }},
-    reducers:{
-      addToCart(state,action){
-        state.cartItems.noOfP = action.payload.value
-      },
-      removeFromCart(state,action){
-        state.cartItems.noOfP = action.payload.value
-        state.cartItems.totalPrice = action.payload.value
-      },
-      minusCartVal(state,action){
-        state.cartItems.noOfP = action.payload.value
-      }
+export const createUserAsync = createAsyncThunk(
+  "user/createUser",
+  async (userData) => {
+    const response = await createUser(userData);
+    return response.data;
+  }
+);
+
+export const loginUserAsync = createAsyncThunk(
+  "user/loginUser",
+  async (userData) => {
+    try {
+      const response = await loginUser(userData);
+      return response.data;
+    } catch (error) {
+      console.log(error);
     }
-})
+  }
+);
 
-export const {addToCart, removeFromCart, minusCartVal} = dataReducer.actions
-export default dataReducer.reducer 
+export const AuthReducer = createSlice({
+  name: "User",
+  initialState: {
+    loggedInUser: null,
+    userChecked: false,
+    error: null,
+    status: "idle",
+  },
+  reducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(createUserAsync.fulfilled, (state, action) => {
+      state.status = "idle";
+      state.loggedInUser = action.payload;
+    })
+    .addCase(loginUserAsync.fulfilled, (state, action)=>{
+      state.status = 'idle',
+      state.loggedInUser = action.payload
+    })
+  },
+});
+
+export const { addToCart, removeFromCart, minusCartVal } = AuthReducer.actions;
+export default AuthReducer.reducer;

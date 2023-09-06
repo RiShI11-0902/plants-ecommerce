@@ -1,13 +1,19 @@
 import axios from 'axios';
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router'
+import { Navigate, useNavigate } from 'react-router'
 import { useForm } from "react-hook-form"
+import { useDispatch, useSelector } from 'react-redux';
+import { createUserAsync } from '../store/slice';
 
 const Registration = () => {
     const navigate = useNavigate();
     const { handleSubmit, register, formState: { errors } } = useForm()
 
     const [form, setForm] = useState({});
+    const dispatch = useDispatch(); 
+
+    const selectUser = useSelector(state => state.auth.loggedInUser)
+    console.log(selectUser);
 
     const handleinput = (e) => {
         console.log(form);
@@ -17,27 +23,28 @@ const Registration = () => {
         })
     }
 
-    const handleForm = async (e) => {
-        e.preventDefault();
-        //http://localhost:8080
-        const data = await axios.post("/auth/register", form)
-        console.log(data);
+    // const handleForm = async (e) => {
+    //     e.preventDefault();
+    //     //http://localhost:8080
+    //     const data = await axios.post("/auth/register", form)
+    //     console.log(data);
 
-        // const response = await fetch('/registration', {
-        //     method: 'POST',
-        //     body: JSON.stringify(form),
-        //     headers: {
-        //         'Content-Type': "application/json"
-        //     }
-        // })
-        // const data = await response.json()
-        // console.log(data);
-        // console.log(response);
+    //     // const response = await fetch('/registration', {
+    //     //     method: 'POST',
+    //     //     body: JSON.stringify(form),
+    //     //     headers: {
+    //     //         'Content-Type': "application/json"
+    //     //     }
+    //     // })
+    //     // const data = await response.json()
+    //     // console.log(data);
+    //     // console.log(response);
 
-    }
+    // }
 
     return (
         <div>
+            { selectUser && <Navigate to={"/"} replace={true} ></Navigate>  }
             <section className="bg-gray-50 dark:bg-gray-900">
 
                 <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -51,6 +58,11 @@ const Registration = () => {
                                 Register your account
                             </h1>
                             <form onSubmit={handleSubmit((data) => {
+                                dispatch(createUserAsync({
+                                    username: data.username,
+                                     name: data.name,
+                                     password: data.password
+                                }))
                                 console.log(data);
                             })} className="space-y-4 md:space-y-6" action="#" noValidate>
                                 <div>
