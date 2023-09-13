@@ -4,12 +4,11 @@ const User = model.User;
 const bcrypt = require("bcrypt")
 
 exports.createUser = async (req,res)=>{
+    // res.send(user)
     const user =  new User();
     user.username = req.body.username
     user.name = req.body.name
     user.password = bcrypt.hashSync(req.body.password.toString(), 10)
-
-    // res.send(user)
     try {
         await user.save()
         req.login(user, (err)=>{
@@ -17,13 +16,13 @@ exports.createUser = async (req,res)=>{
                 res.status(400).json(err)
             }
             else{
-                res.status(201).json(user)
+                res.status(201).json({id: user.id, name: user.name});
             }
         })
-        res.send({id: user.id, name: user.name});
+        // res.send({id: user.id, name: user.name});
         // console.log(user);
     } catch (error) {
-        res.send(error)
+        res.status(400).json(error);
     }
 }
 
@@ -39,6 +38,13 @@ exports.checkUser = (req,res)=>{
     else{
         res.sendStatus(401);
     }
+}
+
+exports.logoutUser = (req,res,next)=>{
+    req.logout(req.user, err =>{
+        if(err) return next(err)
+        res.send(200)
+    })
 }
 // exports.getAllProducts = async (req,res)=>{
 //     const product = await User.find()

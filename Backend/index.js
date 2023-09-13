@@ -46,8 +46,8 @@ server.use(passport.session())
 // console.log(path.resolve(__dirname));
 
 console.log(process.env.SECRET);
-
-server.use("/api/products", isAuthenticated, productRouter.routes)
+//isAuthenticated
+server.use("/api/products", productRouter.routes)
 server.use("/auth",userRouter.routes)
 // server.use("/login", passport.authenticate("local" , {  failureRedirect: "/registration", successRedirect:"/"}))
 // 
@@ -67,7 +67,7 @@ server.use("/auth",userRouter.routes)
 // })
 
 server.get("/",(req,res)=>{
-    res.send("Hello Started")
+    // res.send("Hello Started")
     console.log(__dirname);
 })
 

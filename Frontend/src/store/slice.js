@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { createUser, loginUser } from "./authApi";
+import { createUser, loginUser, logoutUser } from "./authApi";
 
 export const createUserAsync = createAsyncThunk(
   "user/createUser",
@@ -21,6 +21,18 @@ export const loginUserAsync = createAsyncThunk(
   }
 );
 
+export const logoutUserAsync = createAsyncThunk(
+  "user/logout",
+  async ()=>{
+    try {
+      const res = await logoutUser();
+      console.log(res);
+    } catch (error) {
+      
+    }
+  }
+)
+
 export const AuthReducer = createSlice({
   name: "User",
   initialState: {
@@ -39,6 +51,9 @@ export const AuthReducer = createSlice({
       state.status = 'idle',
       state.loggedInUser = action.payload
     })
+    .addCase(logoutUserAsync.fulfilled, (state, action)=>{
+      state.loggedInUser = null
+    } )
   },
 });
 

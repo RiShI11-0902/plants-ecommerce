@@ -10,10 +10,11 @@ export const loginUser = async (userData)=>{
     try {
         const data = axios.post(`http://localhost:8080/auth/login`, userData)
         if(data.ok){
-            const res = await data.json();
+            const res = await data;
+            console.log(res);
             return res;
         }else{
-            const error = await data.json();
+            const error = await data;
             return error
         }
     } catch (error) {
@@ -21,4 +22,13 @@ export const loginUser = async (userData)=>{
     }
     
     return data
+}
+
+export const logoutUser = async ()=>{
+    try {
+        const logout = axios.get("http://localhost:8080/auth/logout")
+        console.log(logout);
+    } catch (error) {
+        console.log(error);
+    }
 }

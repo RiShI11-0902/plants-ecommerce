@@ -5,8 +5,10 @@ const passport = require("passport");
 
 router
     .post("/register",userController.createUser)
-    .post("/login", passport.authenticate("local", {successRedirect: "/"}), userController.loginUser)
+    .post("/login", passport.authenticate("local"), userController.loginUser)
     .get("/checkUser", userController.checkUser)
+    .get("/logout", userController.logoutUser)
+
 
     // .get("/getAllProducts", sellerController.getAllProducts)
 
