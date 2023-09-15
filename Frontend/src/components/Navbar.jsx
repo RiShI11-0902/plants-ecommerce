@@ -14,17 +14,16 @@ const Navbar = () => {
   const [toggle, setToggle] = useState(true)
   const selectUser = useSelector(state => state.auth.loggedInUser)
   const [isOpen, setIsOpen] = useState(false)
-  const options = ["Logout"]
+  const options = ["Settings", "Sell Plants", "Logout",]
   const navigate = useNavigate();
-  const dispatch = useDispatch(); 
+  const dispatch = useDispatch();
 
-  const show = () => {
-    if ( isOpen ) {
-      setIsOpen( false )
-    }
-    setIsOpen(true );
-
-  }
+  // const show = () => {
+  //   if ( isOpen ) {
+  //     setIsOpen( false )
+  //   }
+  //   setIsOpen(true );
+  // }
 
   return (
     <>
@@ -43,21 +42,24 @@ const Navbar = () => {
             </ul>
           </div>
           <div>
+            <div className="text-green-950 text-2xl font-extrabold cursor-pointer  flex flex-row space-x-4" >
+
+            </div>
             {
               selectUser ?
-                <div className="text-green-950 text-2xl font-extrabold cursor-pointer  flex flex-row space-x-4" >
+                <div className="flex flex-row space-x-5">
                   <p>{selectUser.name} </p>
-                  <img onClick={ () => show()} src={user} className="w-10" alt="" />
-                  <div className="">
-                  {
-                    isOpen ?
-                      options.map((i) => {
-                        return <div>
-                          <p onClick={dispatch(logoutUserAsync())}>{i}</p>
-                        </div> 
-                      })
-                      : " "
-                  }
+                  <img onClick={() => isOpen ? setIsOpen(false) : setIsOpen(true)} src={user} className="w-10" alt="" /> <br />
+                  <div className="flex absolute top-20 right-44 text-lg font-semibold cursor-pointer flex-col">
+                    {
+                      isOpen ?
+                        options.map((i) => {
+                          return <div>
+                            <p className="" onClick={() => dispatch(logoutUserAsync())}>{i}</p>
+                          </div>
+                        })
+                        : " "
+                    }
                   </div>
                 </div>
                 : <button className='bg-green-500 p-2.5 px-5 rounded-full' onClick={() => navigate("/login")}>Sign in</button>

@@ -14,6 +14,7 @@ export const loginUserAsync = createAsyncThunk(
   async (userData) => {
     try {
       const response = await loginUser(userData);
+      console.log(response);
       return response.data;
     } catch (error) {
       console.log(error);
@@ -57,5 +58,5 @@ export const AuthReducer = createSlice({
   },
 });
 
-export const { addToCart, removeFromCart, minusCartVal } = AuthReducer.actions;
+// export const { addToCart, removeFromCart, minusCartVal } = AuthReducer.actions;
 export default AuthReducer.reducer;

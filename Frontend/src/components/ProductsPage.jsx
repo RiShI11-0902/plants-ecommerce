@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router'
 import Navbar from './Navbar';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const ProductsPage = () => {
   // const location = useLocation()
@@ -33,26 +34,34 @@ const ProductsPage = () => {
     <>
       <Navbar />
       <div className="mt-20 ">
-        <div className="group relative grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-2 p-5">
           {
             data?.map((i) => {
-              return <div className='p-5 cursor-pointer shadow-slate-200 shadow-xl'>
-                <div className="aspect-h-1  aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none  lg:h-80">
-                  <img src={i.thumbnail} alt="" srcset="" />
-                </div>
-                <div className="mt-4 flex justify-between">
-                  <div>
-                    <h3 className="font-extrabold text-lg">
-
-                      <p aria-hidden="true" className="absolute  inset-0"></p>
-                      {i.title}
-
-                    </h3>
-                    <p className="mt-1 text-sm text-gray-500">Category: {i.category}</p>
-                  </div>
-                  <p className="text-sm font-medium text-gray-900"> Price: {i.price}</p>
-                </div>
-              </div>
+              return <Link to={`/product/${i._id}`}>
+                 <div className="bg-red-400 w-fit ">
+                     <img src={i.thumbnail} alt="" srcset="" />
+                   </div>
+               <p>{i.title}</p> 
+               <p>{i.category}</p>
+               <p>{i.price}</p>
+                </Link> 
+              // return <Link to={`/product/${i._id}`} >
+              //   <div className='p-5 bg-red-700 shadow-slate-200 shadow-xl'>
+              //     <div className="   w-full overflow-hidden rounded-md bg-gray-200 lg:h-80">
+              //       <img src={i.thumbnail} alt="" srcset="" />
+              //     </div>
+              //     <div className="mt-4 flex justify-between">
+              //       <div>
+              //         <h3 className="font-extrabold text-lg">
+              //           <p aria-hidden="true" className="absolute  inset-0"></p>
+              //           {i.title}
+              //         </h3>
+              //         <p className="mt-1 text-sm text-gray-500">Category: </p>
+              //       </div>
+              //       <p className="text-sm font-medium text-gray-900"> Price: </p>
+              //     </div>
+              //   </div>
+              //   </Link>
             })
           }
 
@@ -69,8 +78,8 @@ export default ProductsPage
           {
            
           } */}
-        //   // data?.map((i) => {
-        //     return <div>
-        //     {i.title}
-        //   </div>
-        // })
+//   // data?.map((i) => {
+//     return <div>
+//     {i.title}
+//   </div>
+// })

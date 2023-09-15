@@ -15,6 +15,7 @@ const userSchema = new Schema({
     },
     name:{type: String, required: true},
     password: {type: String, minLength: 6, required: true},
+    storeOwner: {type: Boolean}
 })
 
 exports.User = mongoose.model("User", userSchema)

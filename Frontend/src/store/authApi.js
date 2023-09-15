@@ -1,4 +1,3 @@
-
 import  axios  from "axios"
 
 export const createUser = async (userData)=>{
@@ -20,7 +19,6 @@ export const loginUser = async (userData)=>{
     } catch (error) {
         console.log(error);
     }
-    
     return data
 }
 
