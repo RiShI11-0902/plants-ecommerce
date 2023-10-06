@@ -51,6 +51,7 @@ export const AuthReducer = createSlice({
     .addCase(loginUserAsync.fulfilled, (state, action)=>{
       state.status = 'idle',
       state.loggedInUser = action.payload
+      state.userChecked = true
     })
     .addCase(logoutUserAsync.fulfilled, (state, action)=>{
       state.loggedInUser = null

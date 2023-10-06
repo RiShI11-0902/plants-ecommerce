@@ -1,5 +1,5 @@
 const localStrategy = require("passport-local");
-const { User } = require("./Modal/users");
+const { User }  = require("./Modal/users");
 const bcrypt = require("bcrypt");
 
 exports.initializePassport = (passport) => {
@@ -22,13 +22,13 @@ exports.initializePassport = (passport) => {
 
   passport.serializeUser((user, done) => {
     done(null, user.id);
-    console.log(user.id);
+    console.log( "id is " + user.id);
   });
 
   
-  passport.deserializeUser(async (id, done) => {
+  passport.deserializeUser( async (id, done) => {
     try {
-      const user = await User.findById(id);
+      const user = await  User.findById(id);
      return done(null, user);
     } catch (error) {
      return done(error, false);

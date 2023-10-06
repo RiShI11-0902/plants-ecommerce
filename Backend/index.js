@@ -4,7 +4,7 @@ const server = express()
 const mongoose = require("mongoose")
 const connection = require("./Database config/databse")
 const productRouter = require("./Routes/product")
-const profileRouter = require("./Routes/profile")
+const cartRouter = require("./Routes/cart")
 
 const cors = require("cors")
 const path = require("path")
@@ -21,9 +21,9 @@ initializePassport(passport);
 connection()
 
 // middlewares
-
+// const parser = require("body-parser")
 server.use(cors());
-// server.use(bodyParser);
+// server.use(parser.json());
 server.use(express.urlencoded())
 server.use(express.json());
 // server.use(express.static(path.resolve(__dirname, "dist" , "index.html")))
@@ -49,6 +49,7 @@ console.log(process.env.SECRET);
 //isAuthenticated
 server.use("/api/products", productRouter.routes)
 server.use("/auth",userRouter.routes)
+server.use("/cart",cartRouter.routes)
 // server.use("/login", passport.authenticate("local" , {  failureRedirect: "/registration", successRedirect:"/"}))
 // 
 // server.use("/products", profileRouter.routes )

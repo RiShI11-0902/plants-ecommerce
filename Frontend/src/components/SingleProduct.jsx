@@ -7,6 +7,7 @@ import Cart from './Cart'
 import Navbar from './Navbar'
 import axios from 'axios'
 import { getSingleProductAsync } from '../store/ProductSlice'
+import { addtoCartAsync } from '../store/cartSlice'
 // import {addToCart} from "../store"
 
 export const SingleProduct = () => {
@@ -42,10 +43,25 @@ export const SingleProduct = () => {
     const dispatch = useDispatch()
     const pid = params.id
     const product = useSelector(state => state.product.selectedProduct)
+    const user = useSelector(state => state.auth.loggedInUser)
     console.log(product?.data);
     useEffect(() => {
-       dispatch(getSingleProductAsync(pid))
-    }, [dispatch,pid])
+        dispatch(getSingleProductAsync(pid))
+    }, [dispatch, pid])
+
+    const addtoCart = (e) => {
+        // e.preventDefault();
+        const newItem = {
+
+        }
+        console.log(newItem);
+        dispatch(addtoCartAsync({
+            quantity: 1,
+            product: product.data._id,
+            user: user.id
+        }))
+        console.log(newItem);
+    }
 
     return (
         <>
@@ -60,7 +76,7 @@ export const SingleProduct = () => {
                     <p>{product?.data?.price}</p>
                     <p>{product?.data?.rating}</p>
                     <p>{product?.data?.size}</p>
-                    <button className='p-2 bg-emerald-700' >Add to Cart</button>
+                    <button className='p-2 bg-emerald-700' onClick={() => addtoCart({ ...product })} >Add to Cart</button>
                 </div>
             </div>
         </>

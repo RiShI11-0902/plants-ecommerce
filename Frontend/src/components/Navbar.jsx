@@ -39,6 +39,7 @@ const Navbar = () => {
               <Link to={"/products"} className="cursor-pointer" >Plants</Link>
               <li className="cursor-pointer">Plot & Planters</li>
               <li className="cursor-pointer">Contact</li>
+              { selectUser ? <Link to={`/cart/${selectUser.id}`}><img className="w-9" src={bag}  /></Link> : " " }
             </ul>
           </div>
           <div>
@@ -83,6 +84,7 @@ const Navbar = () => {
                       <Link to={"/products"} className="cursor-pointer" >Plants</Link>
                       <li>Flowers</li>
                       <li >Contact</li>
+                      { selectUser ? <li><img src={bag}  /></li> : " " }
                     </ul>
                     <div>
                       {
