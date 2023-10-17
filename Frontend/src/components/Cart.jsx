@@ -3,16 +3,17 @@ import { Img, close } from "../assets"
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchItemByUserAsync } from '../store/cartSlice'
 import axios from 'axios'
+import { updateCartAsync } from '../store/cartSlice'
 // import { removeFromCart } from '../store/slice'
 
 const Cart = () => {
-    const [items, setItems] = useState()
+    // const [items, setItems] = useState()
     // const total = useSelector((state) => state.Cart.cartItems.totalPrice)
     // const num = useSelector((state) => state.Cart.cartItems.noOfP)
     // console.log(props.onclick);
 
     const dispatch = useDispatch()
-    // const items = useSelector(state => state.cart.ItemsofSingleId)
+    const items = useSelector(state => state.cart.Items)
     const selectUser = useSelector(state => state.auth.loggedInUser)
     console.log(selectUser.id);
     console.log(items);
@@ -27,9 +28,12 @@ const Cart = () => {
         setItems(res.data)
         console.log(items);
     }
+    const updateCart = (e,item)=>{
+        dispatch(updateCartAsync({id: item._id, quantity: +e.target.value}))
+    }
     useEffect(() => {
-    //   dispatch(fetchItemByUserAsync(selectUser.id))
-    getcart()
+      dispatch(fetchItemByUserAsync(selectUser.id))
+    // getcart()
     }, [])
     
     return (
@@ -62,8 +66,14 @@ const Cart = () => {
                      <p className='text-3xl'>{i.product.title}</p>
                      <p className='text-lg mt-2'> Quantity : {i.quantity}</p>
                      <div className='flex mt-2 items-center flex-row h-fit w-full space-x-9  text-3xl'>
-                        <div className='bg-red-500 p-3 text-center'> + </div>
-                        <div className='bg-red-500 p-3 text-center'> - </div>
+                       <select name="select" value={i.quantity} onChange={(e)=>updateCart(e,i)} id="select" >
+                        
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        
+                       </select>
                      </div>
                      </div>
                     </div>

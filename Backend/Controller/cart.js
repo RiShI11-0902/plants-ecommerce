@@ -18,6 +18,7 @@ exports.addToCart = async (req,res)=>{
 
 exports.fetchCartByUser = async (req,res)=>{
     const  user  = req.params.id;
+    // const id = req.body;
     // console.log(user);
     // const id = req.user
     // console.log("mwekmewkfnewfn"+id);
@@ -25,6 +26,13 @@ exports.fetchCartByUser = async (req,res)=>{
     res.json(cartItems);
     // console.log(cartItems);
     // res.json(user)
+}
+
+exports.updateCart = async (req,res)=>{
+    const { id } = req.params;
+    const result = await Cart.findOneAndUpdate(id,req.body, {new: true});
+    const response = result.populate('product')
+    res.json(response);
 }
 
 
