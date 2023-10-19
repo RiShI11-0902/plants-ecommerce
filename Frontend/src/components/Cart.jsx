@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Img, close } from "../assets"
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchItemByUserAsync } from '../store/cartSlice'
+import { deleteCartProductAsync, fetchItemByUserAsync } from '../store/cartSlice'
 import axios from 'axios'
 import { updateCartAsync } from '../store/cartSlice'
 // import { removeFromCart } from '../store/slice'
@@ -15,6 +15,9 @@ const Cart = () => {
     const dispatch = useDispatch()
     const items = useSelector(state => state.cart.Items)
     const selectUser = useSelector(state => state.auth.loggedInUser)
+    const totalPrice = items?.map((i) => {
+        return i.product.price
+    })?.reduce((acc, itr) => { return acc + itr },0)
     console.log(selectUser.id);
     console.log(items);
     // const remove = () => {
@@ -23,19 +26,23 @@ const Cart = () => {
     //     }))
     //     props.onClick()
     // }
-    const getcart = async ()=>{
+    const getcart = async () => {
         const res = await axios.get(`http://localhost:8080/cart/getcart/${selectUser.id}`)
         setItems(res.data)
         console.log(items);
     }
-    const updateCart = (e,item)=>{
-        dispatch(updateCartAsync({id: item._id, quantity: +e.target.value}))
+    const deleteHandle = (id) =>{
+        dispatch(deleteCartProductAsync(id))
+        console.log(id);
     }
+    // const updateCart = (e,item)=>{
+    //     dispatch(updateCartAsync({id: item._id, quantity: +e.target.value}))
+    // }
     useEffect(() => {
-      dispatch(fetchItemByUserAsync(selectUser.id))
-    // getcart()
+        dispatch(fetchItemByUserAsync(selectUser.id))
+        // getcart()
     }, [])
-    
+
     return (
         <>
             {/* <div className="cartBox absolute top-10 left-[32rem] my-auto w-fit p-10 mx-auto  bg-black bg-opacity-75">
@@ -58,25 +65,26 @@ const Cart = () => {
                 }
                 
             </div> */}
+            <div className='p-10'>
+                { totalPrice ? <p className='font-extrabold'> Total Amount : {totalPrice}</p>: " " }
+                
+            </div>
             {
-                items?.map((i)=>{
-                    return <div className='flex  flex-row  space-x-4 p-5 items-center'>
-                     <img src= {i.product.thumbnail} alt="" />  
-                     <div>
-                     <p className='text-3xl'>{i.product.title}</p>
-                     <p className='text-lg mt-2'> Quantity : {i.quantity}</p>
-                     <div className='flex mt-2 items-center flex-row h-fit w-full space-x-9  text-3xl'>
-                       <select name="select" value={i.quantity} onChange={(e)=>updateCart(e,i)} id="select" >
-                        
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                        
-                       </select>
-                     </div>
-                     </div>
+
+                items?.map((i) => {
+                    return <div>
+
+                        <div className='flex  flex-row  space-x-4 p-5 items-center'>
+                            <img src={i.product.thumbnail} alt="" />
+                            <div>
+                                <p className='text-3xl'>{i.product.title}</p>
+                                <p className='text-lg mt-2'> Quantity : {i.quantity}</p>
+                                <p className='text-lg mt-2'>Price: {i.product.price}</p>
+                                <button onClick={()=>deleteHandle(i._id)} className='font-semibold bg-red-500 text-black p-3 mt-5'>Remove</button>
+                            </div>
+                        </div>
                     </div>
+
                 })
             }
         </>

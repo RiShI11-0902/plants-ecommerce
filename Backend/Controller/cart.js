@@ -35,4 +35,10 @@ exports.updateCart = async (req,res)=>{
     res.json(response);
 }
 
+exports.deleteCart = async (req,res)=>{
+    const id = req.params.id
+    const result = await Cart.findByIdAndDelete({_id: id})
+    res.json(result)
+}
+
 

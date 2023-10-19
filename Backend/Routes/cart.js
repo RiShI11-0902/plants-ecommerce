@@ -6,6 +6,6 @@ router
     .post("/addtocart", cartController.addToCart)
     .get("/getcart/:id", cartController.fetchCartByUser )
     .patch("/updatecart/:id", cartController.updateCart)
-    
+    .post("/deleteitem/:id",cartController.deleteCart )
 
 exports.routes = router

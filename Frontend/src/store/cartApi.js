@@ -15,6 +15,11 @@ export const fetchItemsByUser = async(id) =>{
     return data.data
 } 
 
+export const deleteCartProduct = async (id)=>{
+    const data = await axios.post(`http://localhost:8080/cart/deleteitem/${id}`)
+    return data.data
+}
+
 // export const fetchItemsByUser = async(id) =>{
 //     const data = await axios.get(`http://localhost:8080/cart/getcart/${id}`)
 //     return data.data

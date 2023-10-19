@@ -1,5 +1,5 @@
 import { createAsyncThunk,  createSlice } from "@reduxjs/toolkit";
-import { addToCart, updateCart, fetchItemsByUser } from "./cartApi";
+import { addToCart, updateCart, fetchItemsByUser, deleteCartProduct } from "./cartApi";
 
 export const addtoCartAsync = createAsyncThunk(
     "cart/addtocart",
@@ -25,6 +25,14 @@ export const fetchItemByUserAsync = createAsyncThunk(
     }
 )
 
+export const deleteCartProductAsync = createAsyncThunk(
+    "cart/deleteProduct",
+    async (id)=>{
+        const data = await deleteCartProduct(id);
+        return data
+    }
+)
+
 export const CartReducer = createSlice({
     name: "Cart",
     initialState:{
@@ -43,6 +51,10 @@ export const CartReducer = createSlice({
         builder.addCase(updateCartAsync.fulfilled,(state,action)=>{
           const index = state.Items.findIndex(item=> item.id === action.payload.id)
             state.Items[index] = action.payload
+        })
+        builder.addCase(deleteCartProductAsync.fulfilled,(state,action)=>{
+            const index = state.Items.map((i)=> i._id === action.payload._id)
+            state.Items.splice(index,1)
         })
     }
 })
