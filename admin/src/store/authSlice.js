@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { logInAdmin } from "./authApi";
+import { createItem, logInAdmin } from "./authApi";
 
 export const authAsync = createAsyncThunk(
     "admin/login",
@@ -14,15 +14,31 @@ export const authAsync = createAsyncThunk(
     }
 )
 
+export const createItemAsync = createAsyncThunk(
+    "admin/fetchItems",
+    async (item)=>{
+        try {
+            const data = await createItem(item);
+            return data
+        } catch (error) {
+            console.log(error);
+        }
+    }
+)
+
 export const Reducer = createSlice({
     name: "Admin",
     initialState: {
-        loggedIn: null
+        loggedIn: null,
+        allItems:[]
     },
     reducers:{},
     extraReducers: (builder)=>{
         builder.addCase(authAsync.fulfilled, (state,action)=>{
             state.loggedIn = action.payload
+        })
+        builder.addCase(createItemAsync.fulfilled, (state,action)=>{
+            state.allItems = action.payload
         })
     }
 })

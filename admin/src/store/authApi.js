@@ -11,3 +11,12 @@ export const logInAdmin = async (userData) => {
     console.log(error);
   }
 };
+
+export const createItem = async (item)=>{
+  try {
+    const data = await axios.post("http://localhost:8080/api/products/createProducts", item)
+    return data.data
+  } catch (error) {
+    console.log(error);
+  }
+}

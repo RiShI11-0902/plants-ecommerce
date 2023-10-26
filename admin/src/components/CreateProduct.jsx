@@ -2,6 +2,7 @@ import React from 'react'
 import MenuBar from './MenuBar'
 import {useForm} from "react-hook-form"
 import {useDispatch} from "react-redux"
+import { createItemAsync } from '../store/authSlice'
 const CreateProduct = () => {
 
   const {register, handleSubmit, formState: {errors}} = useForm();
@@ -14,6 +15,7 @@ const CreateProduct = () => {
       <div className='flex items-center justify-center h-screen p-10 '>
         <form onSubmit={handleSubmit((data)=>{
           console.log(data);
+          dispatch(createItemAsync(data))
         })} action="" className='flex flex-col space-y-5'>
           <input {...register("title",{
             required: " Title is Required"
@@ -43,8 +45,10 @@ const CreateProduct = () => {
             required: " category is Required"
           })}  className='w-80 p-2 px-4 h-12 my-2 border rounded-lg border-1 border-gray-300 outline-blue-500' type="text" name="category" id="" placeholder='category' />
           <input type="file" name="" placeholder='Image' id="" />
-          {/* <input className='w-80 p-2 px-4 h-12 my-2 border rounded-lg border-1 border-gray-300 outline-blue-500' type="text" name="thumbnail" id=""  />
-       <input className='w-80 p-2 px-4 h-12 my-2 border rounded-lg border-1 border-gray-300 outline-blue-500' type="text" name="images" id="" /> */}
+          <input {...register("thumbnail",{
+            required: " thumbnail is Required"
+          })}  className='w-80 p-2 px-4 h-12 my-2 border rounded-lg border-1 border-gray-300 outline-blue-500' type="text" name="thumbnail" id="" placeholder='thumbnail' />
+       {/* <input className='w-80 p-2 px-4 h-12 my-2 border rounded-lg border-1 border-gray-300 outline-blue-500' type="text" name="images" id="" /> */}
        <button type='submit'>Create</button>
         </form>
 
