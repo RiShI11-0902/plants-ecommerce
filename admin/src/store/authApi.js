@@ -14,8 +14,13 @@ export const logInAdmin = async (userData) => {
 
 export const createItem = async (item)=>{
   try {
-    const data = await axios.post("http://localhost:8080/api/products/createProducts", item)
-    return data.data
+
+    await axios.post("http://localhost:8080/api/products/createProducts", item, {
+      headers: { 'Content-Type': 'multipart/form-data' }
+    }).then((res) => {
+      console.log("sucesss" + res);
+    })
+
   } catch (error) {
     console.log(error);
   }

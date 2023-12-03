@@ -16,7 +16,7 @@ const Cart = () => {
     const items = useSelector(state => state.cart.Items)
     const selectUser = useSelector(state => state.auth.loggedInUser)
     const totalPrice = items?.map((i) => {
-        return i.product.price
+        return i?.product?.price
     })?.reduce((acc, itr) => { return acc + itr },0)
     console.log(selectUser.id);
     console.log(items);
@@ -75,12 +75,12 @@ const Cart = () => {
                     return <div>
 
                         <div className='flex  flex-row  space-x-4 p-5 items-center'>
-                            <img src={i.product.thumbnail} alt="" />
+                            <img src={`http://localhost:8080/images/`+ i?.product?.image} alt="" />
                             <div>
-                                <p className='text-3xl'>{i.product.title}</p>
-                                <p className='text-lg mt-2'> Quantity : {i.quantity}</p>
-                                <p className='text-lg mt-2'>Price: {i.product.price}</p>
-                                <button onClick={()=>deleteHandle(i._id)} className='font-semibold bg-red-500 text-black p-3 mt-5'>Remove</button>
+                                <p className='text-3xl'>{i?.product?.title}</p>
+                                <p className='text-lg mt-2'> Quantity : {i?.product?.quantity}</p>
+                                <p className='text-lg mt-2'>Price: {i?.product?.price}</p>
+                                <button onClick={()=>deleteHandle(i?.product?._id)} className='font-semibold bg-red-500 text-black p-3 mt-5'>Remove</button>
                             </div>
                         </div>
                     </div>

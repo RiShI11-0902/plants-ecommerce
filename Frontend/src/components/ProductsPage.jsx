@@ -38,13 +38,13 @@ const ProductsPage = () => {
           {
             data?.map((i) => {
               return <Link to={`/product/${i._id}`}>
-                 <div className="bg-red-400 w-fit ">
-                     <img src={i.thumbnail} alt="" srcset="" />
-                   </div>
-               <p>{i.title}</p> 
-               <p>{i.category}</p>
-               <p>{i.price}</p>
-                </Link> 
+                <div className="bg-red-400 w-fit ">
+                  <img src={`http://localhost:8080/images/`+i.image} alt="" srcset="" />
+                </div>
+                <p>{i.title}</p>
+                <p>{i.category}</p>
+                <p>{i.price}</p>
+              </Link>
               // return <Link to={`/product/${i._id}`} >
               //   <div className='p-5 bg-red-700 shadow-slate-200 shadow-xl'>
               //     <div className="   w-full overflow-hidden rounded-md bg-gray-200 lg:h-80">

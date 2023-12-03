@@ -67,8 +67,8 @@ export const SingleProduct = () => {
         <>
             <Navbar />
             <div className='flex flex-row w-fit mx-auto mt-20 p-5 space-x-20'>
-                <div className=''>
-                    <img src={product?.data?.thumbnail} alt="" />
+                <div className='w-80'>
+                    <img src={`http://localhost:8080/images/`+product?.data?.image} alt="" />
                 </div>
                 <div>
                     <p>{product?.data?.title}</p>

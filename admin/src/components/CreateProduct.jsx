@@ -1,58 +1,78 @@
-import React from 'react'
+import React, { useState } from 'react'
+import FormData from "form-data"
 import MenuBar from './MenuBar'
-import {useForm} from "react-hook-form"
-import {useDispatch} from "react-redux"
+import { useForm } from "react-hook-form"
+import { useDispatch } from "react-redux"
 import { createItemAsync } from '../store/authSlice'
+import axios from 'axios'
 const CreateProduct = () => {
 
-  const {register, handleSubmit, formState: {errors}} = useForm();
-  const dispatch = useDispatch();
+  const [file, setFile] = useState()
 
+  const dispatch = useDispatch()
+
+  const [title, setTitle] = useState()
+  const [desc, setDesc] = useState()
+  const [price, setPrice] = useState()
+  const [rating, setRating] = useState()
+  const [discount, setDiscount] = useState()
+  const [size, setSize] = useState()
+  const [Category, setCategory] = useState()
+
+
+
+
+
+  const upload = async (e) => {
+    console.log(title);
+    e.preventDefault()
+    let formdata = new FormData()
+    formdata.append("title", title)
+    formdata.append("price", price)
+    formdata.append("description", desc)
+    formdata.append("rating", rating)
+    formdata.append("category", Category)
+    formdata.append("size", size)
+    formdata.append("discount", discount)
+    formdata.append("file", file)
+    console.log(...formdata);
+
+    dispatch(createItemAsync(formdata))
+    
+    // await axios.post("http://localhost:8080/api/products/createProducts", formdata, {
+    //   headers: { 'Content-Type': 'multipart/form-data' }
+    // }).then((res) => {
+    //   console.log("sucesss" + res);
+    // })
+  }
+
+
+  // filename={file}
   return (
     <>
       <MenuBar />
 
-      <div className='flex items-center justify-center h-screen p-10 '>
-        <form onSubmit={handleSubmit((data)=>{
-          console.log(data);
-          dispatch(createItemAsync(data))
-        })} action="" className='flex flex-col space-y-5'>
-          <input {...register("title",{
-            required: " Title is Required"
-          })} className='w-80 p-2 px-4 h-12 my-2 border rounded-lg border-1 border-gray-300 outline-blue-500' id='title' type="text" name='title' placeholder='title' />
+      <form className='w-fit mx-auto' >
+        <div className='flex space-x-10  flex-row  p-10'>
 
-          <input {...register("description",{
-            required: " description is Required"
-          })}  className='w-80 p-2 px-4 h-12 my-2 border rounded-lg border-1 border-gray-300 outline-blue-500' type="text" name="description" id="" placeholder='description' />
+          <div className="left  flex flex-col space-y-8">
+            <input className="w-80 p-2 outline-blue-700 shadow-2xl shadow-blue-300" type="text" placeholder='title' name="title" onChange={(e) => setTitle(e.target.value)} id="" />
+            <input className="w-80 p-2 outline-blue-700 shadow-2xl shadow-blue-300" type="text" placeholder='price' name="price" onChange={(e) => setPrice(e.target.value)} id="" />
+            <input className="w-80 p-2 outline-blue-700 shadow-2xl shadow-blue-300" type="text" placeholder='discount' name="discount" onChange={(e) => setDiscount(e.target.value)} id="" />
+            <input className="w-80 p-2 outline-blue-700 shadow-2xl shadow-blue-300" type="text" placeholder='category' name="category" onChange={(e) => setCategory(e.target.value)} id="" />
+          </div>
+          <div className="right  flex flex-col space-y-8">
+            <input className="w-80 p-2 outline-blue-700 shadow-2xl shadow-blue-300" type="text" placeholder='rating' name="rating" onChange={(e) => setRating(e.target.value)} id="" />
+            <input className="w-80 p-2 outline-blue-700 shadow-2xl shadow-blue-300" type="text" placeholder='size' name="size" onChange={(e) => setSize(e.target.value)} id="" />
+            <input className="w-80 p-2 outline-blue-700 shadow-2xl shadow-blue-300" type="text" placeholder='description' name="description" onChange={(e) => setDesc(e.target.value)} id="" />
+            <input className="w-80 p-2 outline-blue-700 shadow-2xl shadow-blue-300" type="file" placeholder='Upload image' name='file' onChange={(e) => setFile(e.target.files[0])} />
+          </div>
+        </div>
+            <input className="w-20 mx-auto border-blue-950 border rounded-3xl p-3.5 cursor-pointer outline-green-700 shadow-2xl shadow-blue-300" type="submit" onClick={upload} value="CREATE" />
 
-          <input {...register("price",{
-            required: " price is Required"
-          })}  className='w-80 p-2 px-4 h-12 my-2 border rounded-lg border-1 border-gray-300 outline-blue-500' type="text" name="price" id="" placeholder='price' />
+      </form>
 
-          <input {...register("discountPercentage",{
-            required: " discountPercentage is Required"
-          })}  className='w-80 p-2 px-4 h-12 my-2 border rounded-lg border-1 border-gray-300 outline-blue-500' type="text" name="discountPercentage" id="" placeholder='discountPercentage' />
 
-          <input {...register("rating",{
-            required: " rating is Required"
-          })}  className='w-80 p-2 px-4 h-12 my-2 border rounded-lg border-1 border-gray-300 outline-blue-500' type="text" name="rating" id="" placeholder='rating' />
-
-          <input {...register("size",{
-            required: " size is Required"
-          })}  className='w-80 p-2 px-4 h-12 my-2 border rounded-lg border-1 border-gray-300 outline-blue-500' type="text" name="size" id="" placeholder='size' />
-
-          <input {...register("category",{
-            required: " category is Required"
-          })}  className='w-80 p-2 px-4 h-12 my-2 border rounded-lg border-1 border-gray-300 outline-blue-500' type="text" name="category" id="" placeholder='category' />
-          <input type="file" name="" placeholder='Image' id="" />
-          <input {...register("thumbnail",{
-            required: " thumbnail is Required"
-          })}  className='w-80 p-2 px-4 h-12 my-2 border rounded-lg border-1 border-gray-300 outline-blue-500' type="text" name="thumbnail" id="" placeholder='thumbnail' />
-       {/* <input className='w-80 p-2 px-4 h-12 my-2 border rounded-lg border-1 border-gray-300 outline-blue-500' type="text" name="images" id="" /> */}
-       <button type='submit'>Create</button>
-        </form>
-
-      </div>
     </>
   )
 }
