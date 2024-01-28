@@ -8,5 +8,5 @@ router
     .post("/createProducts",   productController.createProduct )
     .get("/getAllProducts", productController.getAllProducts)
     .get("/getProductById/:id", productController.getProductById)
-
+    // .patch("/updateProduct/:id", productController.u)
 exports.routes = router

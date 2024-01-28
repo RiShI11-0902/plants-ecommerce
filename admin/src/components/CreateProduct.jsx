@@ -58,7 +58,7 @@ const CreateProduct = () => {
           <div className="left  flex flex-col space-y-8">
             <input className="w-80 p-2 outline-blue-700 shadow-2xl shadow-blue-300" type="text" placeholder='title' name="title" onChange={(e) => setTitle(e.target.value)} id="" />
             <input className="w-80 p-2 outline-blue-700 shadow-2xl shadow-blue-300" type="text" placeholder='price' name="price" onChange={(e) => setPrice(e.target.value)} id="" />
-            <input className="w-80 p-2 outline-blue-700 shadow-2xl shadow-blue-300" type="text" placeholder='discount' name="discount" onChange={(e) => setDiscount(e.target.value)} id="" />
+            <input className="w-80 p-2 outline-blue-700 shadow-2xl shadow-blue-300" type="number" placeholder='discount' name="discount" onChange={(e) => setDiscount(e.target.value)} id="" />
             <input className="w-80 p-2 outline-blue-700 shadow-2xl shadow-blue-300" type="text" placeholder='category' name="category" onChange={(e) => setCategory(e.target.value)} id="" />
           </div>
           <div className="right  flex flex-col space-y-8">

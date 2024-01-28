@@ -49,8 +49,9 @@ export const CartReducer = createSlice({
             state.Items = action.payload
         })
         builder.addCase(updateCartAsync.fulfilled,(state,action)=>{
-          const index = state.Items.findIndex(item=> item.id === action.payload.id)
-            state.Items[index] = action.payload
+        //   const index = state.Items.findIndex(item=> item.id === action.payload.id)
+        //     state.Items[index] = action.payload
+        state.Items = action.payload
         })
         builder.addCase(deleteCartProductAsync.fulfilled,(state,action)=>{
             const index = state.Items.map((i)=> i._id === action.payload._id)

@@ -7,7 +7,7 @@ export const addToCart = async (item)=>{
 
 export const updateCart = async (updation)=>{
     const data = await axios.patch(`http://localhost:8080/cart/updatecart/${updation._id} `, updation)
-    return data
+    return data.data
 }
 
 export const fetchItemsByUser = async(id) =>{

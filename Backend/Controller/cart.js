@@ -29,14 +29,28 @@ exports.fetchCartByUser = async (req,res)=>{
 }
 
 exports.updateCart = async (req,res)=>{
-    const { id } = req.params;
-    const result = await Cart.findOneAndUpdate(id,req.body, {new: true});
-    const response = result.populate('product')
-    res.json(response);
+    const  id  = req.body._id;
+    console.log(req.body._id);
+    const item = await Cart.findOne({_id: id})
+    item.quantity += req.body.quantity
+    await item.save()
+    console.log("item is "+item);
+    // const  user  = req.user.id;
+    // console.log(user);
+    const cartItems = await Cart.find({user: req.body.user}).populate("product")
+    res.json(cartItems);
+    // res.json(item)
+    // console.log(req.user);
+    // console.log(id);
+    // const result = await Cart.findOneAndUpdate({_id: id} ,req.body, {new: true});
+    console.log(cartItems);
+    // const response = result.populate('product')
+    // res.json(response);
 }
 
 exports.deleteCart = async (req,res)=>{
     const id = req.params.id
+    console.log(id);
     const result = await Cart.findByIdAndDelete({_id: id})
     res.json(result)
 }
